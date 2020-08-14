@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animate Text</title>
+    <style>
+        *, *::before,*::after{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #000;
+        }
+        .animate-text{
+            color: #fff;
+            font-size: 4rem;
+            font-family: sans-serif;
+            text-align: center;
+            line-height: 100vh;
+        }
+
+        .animate-text span{
+            transition: all .5s ease;
+        }
+        .animate-text .fade {
+            color: rgb(43, 123, 209);
+        }
+
+        .animate-text2{
+            color: #fff;
+            font-size: 4rem;
+            font-family: sans-serif;
+            text-align: center;
+            line-height: 100vh;
+        }
+        .animate-text2 span{
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all .5s ease;
+        }
+        .animate-text2 .fade {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+    </style>
+</head>
+<body>
+    <!-- <h2 class="animate-text">Animate Text</h2> -->
+    <h2 class="animate-text2">Animate Text 2</h2>
+    <script>
+        function animateText(ele) {
+            const textEl = document.querySelector(ele);
+
+            const text = textEl.textContent;
+
+            const splitText  = text.split("");
+
+            textEl.textContent = "";
+
+            for (let i = 0; i < splitText.length; i++) {
+                textEl.innerHTML += "<span>"+splitText[i]+"</span>"
+            }
+
+            let char = 0;
+            let timer = setInterval(onTick, 50);
+
+            function onTick() {
+                const span = document.querySelectorAll('span')[char];
+                span.classList.add('fade');
+                char++;
+
+                if (char === splitText.length) {
+                    clearInterval(timer);
+                    timer = null;
+                }
+            }
+        }
+        animateText(ele='.animate-text2')
+
+    </script>
+</body>
+</html>
